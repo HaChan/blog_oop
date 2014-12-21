@@ -1,7 +1,6 @@
 require "minitest/autorun"
+require "active_model"
 require_relative "../spec_helper_lite"
-stub_module "ActiveModel::Conversion"
-stub_module "ActiveModel::Naming"
 require_relative "../../app/models/post"
 
 describe Post do
@@ -34,9 +33,22 @@ describe Post do
     it.body.must_equal "mybody"
   end
 
+  it "is not valid with a blank title" do
+    [nil, "", ""].each do |bad_title|
+      subject.title = bad_title
+      refute subject.valid?
+    end
+  end
+
+  it "is valid with a non-blank title" do
+    subject.title = "title"
+    assert subject.valid?
+  end
+
   describe "#publish" do
     before do
       @blog = MiniTest::Mock.new
+      subject.title = "title"
       subject.blog = @blog
     end
 
@@ -47,6 +59,19 @@ describe Post do
     it "adds the post to the blog" do
       @blog.expect :add_entry, nil, [subject]
       subject.publish
+    end
+
+    describe "given an invalid post" do
+      before{subject.title = nil}
+
+      it "wont add the post to the blog" do
+        dont_allow(@blog).add_entry
+        subject.publish
+      end
+
+      it "return false" do
+        refute subject.publish
+      end
     end
   end
 
@@ -63,6 +88,7 @@ describe Post do
         @now = DateTime.parse "2014-12-21T12:22"
         stub(@clock).now(){@now}
         subject.blog = stub!
+        subject.title = "title"
         subject.publish @clock
       end
 
