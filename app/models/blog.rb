@@ -25,6 +25,10 @@ class Blog
   end
 
   def add_entry entry
-    entries << entry
+    @entries << entry
+  end
+
+  def entries
+    @entries.sort_by{|e| e.pubdate}.reverse.take 10
   end
 end
