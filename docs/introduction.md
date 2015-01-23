@@ -37,4 +37,3 @@ Amongst all this uncertainly, there are some basic principles that have proven, 
 These rules of thumb, praticed habitually, tend to lead to more flexible codebase which can adapt to any type of change; whether the change is a data model which better resembles the problem domain; a new data storage backend; or a restructuring of the app into a half-dozen mini apps
 
 So the answer to the why OOP question is "because things change". Some good habits and sound architectural guidance early on in a project can save a lot of headaches down the road.
-
