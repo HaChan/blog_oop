@@ -1,9 +1,17 @@
 require "rr"
 require "date"
 require "pry"
+require "minitest/autorun"
+require "active_record"
+
 class MiniTest::Unit::TestCase
   include RR::Adapters::MiniTest
 end
+
+ActiveRecord::Base.establish_connection :adapter => "sqlite3",
+  :database => ":test:"
+
+ENV["RAILS_ENV"] = "test"
 
 def stub_module full_name
   full_name.to_s.split(/::/).inject(Object) do |context, name|

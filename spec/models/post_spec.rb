@@ -1,4 +1,3 @@
-require "minitest/autorun"
 require "active_model"
 require_relative "../spec_helper_lite"
 require_relative "../../app/models/post"
@@ -27,11 +26,11 @@ describe Post do
     subject.blog.must_equal blog
   end
 
-  it "supports setting attributes in the initializer" do
-    it = Post.new title: "mytitle", body: "mybody"
-    it.title.must_equal "mytitle"
-    it.body.must_equal "mybody"
-  end
+  #it "supports setting attributes in the initializer" do
+  #  it = Post.new title: "mytitle", body: "mybody"
+  #  it.title.must_equal "mytitle"
+  #  it.body.must_equal "mybody"
+  #end
 
   it "is not valid with a blank title" do
     [nil, "", ""].each do |bad_title|
