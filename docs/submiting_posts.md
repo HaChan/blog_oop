@@ -134,7 +134,7 @@ Post.stub(:new).and_return(:post)
 
 Having to stub `new`, or override a method on every instance of an object, is a bad approach to testing
 
-Because the Post class now have included ActiveModel module, it can not be tested isolatly. Rails have a mechanism to autoload constants that have not included in the app, but our isolated minitest have not include any dependency in order to make the test fast.
+Because the Post class now have included ActiveModel module, it can not be tested isolatedly. Rails have a mechanism to autoload constants that have not included in the app, but our isolated minitest have not include any dependency in order to make the test fast.
 
 The easiest way to make the test pass is to include ActiveModel some where in the test setup. But it is not necessary since there are plenty of way to make the test work with out including ActiveModel directly.
 
